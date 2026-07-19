@@ -1,0 +1,124 @@
+# Rust Basics Review
+
+## 1. Variables
+
+### `let`
+let 是用来定义变量得。Rust 里变量默认不可变，不可重新赋值。
+
+### `let mut`
+也是用来定义变量，但是 `mut` 这个关键字添加后，变量就可以被重新赋值了
+
+### `const`
+定义常量
+
+```rust
+const NUMBER: i32 = 3;
+```
+
+### shadowing
+shadowing 是用 `let` 重新声明同名变量，可以改变值，也可以改变类型
+
+## 2. Functions
+fn `函数名` 定义一个函数 
+
+### function signature
+
+```rust
+fn add_one(num: i32) -> i32  
+```
+
+### parameters
+函数参数是传入函数得值，Rust 里面每个参数都必须写类型
+
+### return type
+返回类型告诉Rust 这个函数会返回什么类型得值，写在 `-> ` 后面。
+
+### return value without semicolon
+Rust 里面函数最后一行如果不加分号，它得值会被自动返回。
+```rust
+fn square(num: i32) -> i32 {
+    num * num
+}
+```
+
+## 3. Basic Types
+
+### `i32`
+`i32` 是有符号32位整数，可以存正整数和负整数。
+
+### `u64`
+ `u64`是unsigned 64-bit integer ，只能是0跟正数，不能是负数。solana的 lamports 常用 `u64`
+
+### `bool`
+`bool` 只有两个值， `true`和 `false` 。 `!`表示取反。
+
+### `char`
+`char` 表示单个字符，用单引号
+```rust
+let letter = 'D';
+```
+
+### `&str`
+字符串字面量/字符串切片， 像 `"Alice"` 这种双引号内容通常是 `&str`
+
+### `String`
+`String` 是拥有所有权的字符串，存储在堆上，可以用 `String::from()`创建
+```rust
+let name = String::from("Alice");
+```
+
+## 4. Control Flow
+```rust
+
+let identifier = if animal == "crab" {
+    1
+} else {
+    4
+};
+
+```
+### `if`
+if 条件语句 {}  用来判断一个条件是否成立。
+
+### `else if`
+用来判断另一个条件
+
+### `else`
+表示前面的条件都不成立时执行的分支。
+
+### branch return types
+`if / else if / else` 如果作为表达式返回值，每个分支返回的类型必须一样
+
+## 5. Arrays
+
+### `[value; count]`
+[0;100]  重复0 100次组成新得数组
+
+### `.len()`
+用来获取数组，字符串等数据的长度。
+
+## 6. Common Errors
+
+### immutable variable reassignment
+
+这个错误表示试图给不可变变量重新赋值。如果变量之后需要改变，要使用 `mut`。
+```rust
+let mut x = 3;
+x = 5;
+```
+
+### variable not initialized
+Rust 不允许使用还没有赋值得变量。
+
+
+### mismatched types
+这个错误表示类型不匹配： Rust 期待一种类型，但实际得到另一种类型。
+```rust
+let x: i32 = "hello";
+```
+
+### function not found
+这个错误表示调用了一个不存在的函数，或者函数名拼错了。
+
+### missing type
+这个错误表示Rust 需要明确类型，但是代码里没有写。 比如`const` 必须要写类型。
