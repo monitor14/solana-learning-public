@@ -122,3 +122,52 @@ let x: i32 = "hello";
 
 ### missing type
 这个错误表示Rust 需要明确类型，但是代码里没有写。 比如`const` 必须要写类型。
+
+
+### slice
+`slice` 是切片，表示从数组里借用一段连续内容
+
+```rust
+let a  = [1,2,3,4,5];
+let nice_slice = &a[1..=3];
+```
+
+### tuple
+tuple 可以存放多个不同类型的值。
+```rust
+let cat = ("Furry Mcfurson",3.5);
+let (name,age) = cat;
+```
+### tuple index
+可以用 `.0`,`.1`,`.2`, 类似的形式来访问里面的元素。
+
+```rust
+let numbers = (1,2,3);
+let second = numbers.1;
+```
+
+## Vector 
+`Vector` 是Rust 里面的动态数组， 和array 不同，`Vec`的长度是可以变化的。
+```rust
+let v = vec![10,20,30,40]
+```
+创建空数组的方法 ： 
+```rust
+let mut output = Vec::new();
+output.push(2);
+```
+
+### .iter()方法
+用来遍历数据
+
+### .map()方法
+用来把每个元素转换成新值
+
+### .collect()方法
+用来把结果收集成新的集合
+
+
+```rust
+input.iter().map(|element| element * 2).collect()
+```
+链式写法：`iter()` 创建一个迭代器，用来依次访问每个元素；`map()` 对每个 `element` 执行 `element * 2`，产生新的值；最后 `collect()` 把这些新值收集成一个新的 `Vec`。
