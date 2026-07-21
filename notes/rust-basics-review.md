@@ -171,3 +171,10 @@ output.push(2);
 input.iter().map(|element| element * 2).collect()
 ```
 链式写法：`iter()` 创建一个迭代器，用来依次访问每个元素；`map()` 对每个 `element` 执行 `element * 2`，产生新的值；最后 `collect()` 把这些新值收集成一个新的 `Vec`。
+
+## Move Semantics  所有权
+### Ownership = 谁拥有这个值
+### Move = 拿走所有权
+### Borrow  = 借用，不拿走
+### Mutable Borrow = 可变借用
+### 函数参数也涉及所有权
