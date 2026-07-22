@@ -173,8 +173,82 @@ input.iter().map(|element| element * 2).collect()
 链式写法：`iter()` 创建一个迭代器，用来依次访问每个元素；`map()` 对每个 `element` 执行 `element * 2`，产生新的值；最后 `collect()` 把这些新值收集成一个新的 `Vec`。
 
 ## Move Semantics  所有权
+
 ### Ownership = 谁拥有这个值
+
+Rust 大部分值都有owner.
+```rust
+let data = String::from("hello");
+```
+这里的data拥有 这个String
+
+
+
+
 ### Move = 拿走所有权
+```rust
+let s1 = String::from("hello");
+let s2 = s1;
+```
+这里的s1 的所有权移动给s2.
+之后s1不能再使用。
+
+
 ### Borrow  = 借用，不拿走
+```rust
+let s1 = String::from("hello");
+let s2 = &s1 ;
+```
+这里s2只是借用s1
+所以s1还能继续使用。
+
 ### Mutable Borrow = 可变借用
+```rust
+let y = &mut x;
+```
+表示：借用x，并且允许通过y修改x
+但是规则是  ：同一时间只能有一个可变借用。
+所以以下不行：
+```rust
+let y = &mut x;
+let z = &mut x;
+y.push(42);
+```
+因为y还没用完，z又想借
+不过以下可以
+```rust
+let y = &mut x;
+y.push(42);
+let z = &mut x;
+z.push(42);
+
+```
+因为`y`用完后，`z`才开始借
+
 ### 函数参数也涉及所有权
+函数参数本质上也是变量。
+拿走所有权：
+```rust
+fn string_uppercase(data: String)
+```
+调用：
+```rust
+string_uppercase(data);
+```
+意思是把 `data`交给函数。
+只借用：
+```rust
+fn get_char(data: &String)
+```
+调用：
+```rust
+get_char(&data);
+```
+意思是把 `data`借给函数看一下。
+### 最重要的判断方法
+```问自己，这个函数是只需要看一下，还是要完全交给他处理？```
+|目的|参数类型|调用方式|
+|---|---|---|
+|只读借用|`&String`|`&data`|
+|拿走所有权|`String`|`data`|
+|可变借用|`&mut String`|`&mut data`|
